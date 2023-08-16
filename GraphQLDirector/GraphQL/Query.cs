@@ -7,6 +7,8 @@ namespace GraphQLDirector.GraphQL
     {
         [UseDbContext(typeof(ApiDbContext))]
         [UseProjection]
+        [UseFiltering]
+        [UseSorting]
         public IQueryable<Video> GetVideos([ScopedService] ApiDbContext context)
         {
             return context.Videos!;
@@ -14,6 +16,8 @@ namespace GraphQLDirector.GraphQL
 
         [UseDbContext(typeof(ApiDbContext))]
         [UseProjection]
+        [UseFiltering]
+        [UseSorting]
         public IQueryable<Director> GetDirector([ScopedService] ApiDbContext context)
         {
             return context.Directores!;
