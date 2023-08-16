@@ -20,6 +20,7 @@ builder.Services.AddPooledDbContextFactory<ApiDbContext>(options => options.UseS
 builder.Services.AddGraphQLServer()
     .AddQueryType<Query>()
     .AddProjections()
+    .AddMutationType<Mutation>()
     .AddFiltering()
     .AddSorting()
     .AddType<VideoType>();
