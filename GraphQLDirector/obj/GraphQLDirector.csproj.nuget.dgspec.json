@@ -48,15 +48,15 @@
           "dependencies": {
             "GraphQL.Server.Ui.Voyager": {
               "target": "Package",
-              "version": "[7.6.0, )"
+              "version": "[6.1.0, )"
             },
             "HotChocolate.AspNetCore": {
               "target": "Package",
-              "version": "[13.4.0, )"
+              "version": "[12.11.1, )"
             },
             "HotChocolate.Data.EntityFramework": {
               "target": "Package",
-              "version": "[13.4.0, )"
+              "version": "[12.11.1, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",

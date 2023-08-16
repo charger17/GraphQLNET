@@ -1,4 +1,7 @@
+using GraphQL.Server.Ui.Voyager;
 using GraphQLDirector.Data;
+using GraphQLDirector.GraphQL;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +15,11 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ApiDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString")));
 
+//add graphql
+builder.Services.AddGraphQL()
+    .AddQueryType<Query>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -21,7 +29,21 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseRouting();
 app.UseAuthorization();
+
+
+//GRAPH ENDPOINTS
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapGraphQL();
+});
+
+app.UseGraphQLVoyager(new VoyagerOptions()
+{
+    GraphQLEndPoint = "/graphql"
+}, "/graphql-ui"
+);
 
 app.MapControllers();
 
