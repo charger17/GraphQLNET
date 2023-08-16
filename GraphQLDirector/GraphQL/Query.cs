@@ -6,6 +6,7 @@ namespace GraphQLDirector.GraphQL
     public class Query
     {
         [UseDbContext(typeof(ApiDbContext))]
+        [UsePaging]
         [UseProjection]
         [UseFiltering]
         [UseSorting]
