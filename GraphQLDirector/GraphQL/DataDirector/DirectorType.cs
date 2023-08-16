@@ -12,6 +12,13 @@ namespace GraphQLDirector.GraphQL.DataDirector
                 .ResolveWith<Resolvers>(x => x.GetVideos(default!, default!))
                 .UseDbContext<ApiDbContext>()
                 .Description("Representa la coleccion de videos de este director.");
+
+            descriptor.Field("nombreCompleto")
+                .ResolveWith<Resolvers>(p => p.GetNombreCompleto(default!, default!))
+                .UseDbContext<ApiDbContext>()
+                .Description(@"El nombre completo del director.");
+
+            descriptor.Ignore(x => x.Id);
         }
 
         private class Resolvers
@@ -19,6 +26,11 @@ namespace GraphQLDirector.GraphQL.DataDirector
             public IQueryable<Video> GetVideos(Director director, [ScopedService] ApiDbContext context)
             {
                 return context.Videos!.Where(x => x.DirectorId == director.Id);
+            }
+        
+            public string GetNombreCompleto([Parent] Director director, [ScopedService] ApiDbContext context)
+            {
+                return $"{director.Nombre} {director.Apellido}";
             }
         }
     }

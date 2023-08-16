@@ -1,6 +1,7 @@
 using GraphQL.Server.Ui.Voyager;
 using GraphQLDirector.Data;
 using GraphQLDirector.GraphQL;
+using GraphQLDirector.GraphQL.DataDirector;
 using GraphQLDirector.GraphQL.DataVideo;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
@@ -16,14 +17,19 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddPooledDbContextFactory<ApiDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString")));
 
-//add graphql
+Type[] types = {
+    typeof(VideoType),
+    typeof(DirectorType)
+};
+
+
 builder.Services.AddGraphQLServer()
     .AddQueryType<Query>()
+    .AddTypes(types)
     .AddProjections()
     .AddMutationType<Mutation>()
     .AddFiltering()
-    .AddSorting()
-    .AddType<VideoType>();
+    .AddSorting();
 
 
 var app = builder.Build();
