@@ -5,9 +5,18 @@ namespace GraphQLDirector.GraphQL
 {
     public class Query
     {
-        public IQueryable<Video> GetVideos([Service] ApiDbContext context)
+        [UseDbContext(typeof(ApiDbContext))]
+        [UseProjection]
+        public IQueryable<Video> GetVideos([ScopedService] ApiDbContext context)
         {
             return context.Videos!;
+        }
+
+        [UseDbContext(typeof(ApiDbContext))]
+        [UseProjection]
+        public IQueryable<Director> GetDirector([ScopedService] ApiDbContext context)
+        {
+            return context.Directores!;
         }
     }
 }
